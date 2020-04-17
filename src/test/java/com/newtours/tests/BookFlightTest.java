@@ -1,6 +1,7 @@
 package com.newtours.tests;
 
 import com.newtours.pages.*;
+import com.tests.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -9,17 +10,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class BookFlightTest {
-    private WebDriver driver;
+public class BookFlightTest extends BaseTest {
     private String noOfPassengers;
     private String expectedPrice;
 
     @BeforeTest
     @Parameters({"noOfPassengers","expectedPrice"})
-    public void setuoDriver(String noOfPassengers,String expectedPrice) {
-        //set path
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        this.driver = new ChromeDriver();
+    public void setupParameter(String noOfPassengers,String expectedPrice) {
         this.noOfPassengers=noOfPassengers;
         this.expectedPrice=expectedPrice;
     }
@@ -59,11 +56,6 @@ public class BookFlightTest {
         String actualPrice=flightConfirmationPage.getPrice();
         Assert.assertEquals(actualPrice,expectedPrice,"Price does not match");
 
-    }
-
-    @AfterTest
-    public void quitBrowser(){
-        this.driver.quit();
     }
 
 }
